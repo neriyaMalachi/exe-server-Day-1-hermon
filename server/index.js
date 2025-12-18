@@ -4,7 +4,7 @@ const app = express();
 app.use(express.json());
 const PORT = 8000;
 const time = new Date();
-
+const key =process.env.KEY
 app.get("/greet", (req, res) => {
   res.json({ msg: `hi from get endpoint ${time.toISOString().split("T")[0]}` });
 });
@@ -46,12 +46,13 @@ app.post("/action", async (req, res) => {
     const jokeText = `${joke.setup} : ${joke.punchline}`.toUpperCase();
    return res.json({ joke: jokeText });
   }
+
   if (action == "cat fact") {
     const data = await fetch(
       "https://api.thecatapi.com/v1/images/search?limit=13",
       {
         headers: {
-          "x-api-key": "live_rtEHt72tcjdQlt0n5t38Hs2triN6qOdDrFaLFP9pffX9EXtIKnk4dsjCGTE5WRAM",
+          "x-api-key": key,
         },
       }
     );
